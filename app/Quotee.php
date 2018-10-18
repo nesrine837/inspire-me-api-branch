@@ -10,4 +10,14 @@ class Quotee extends Model
     {
         return $this->hasMany(Quote::class);
     }
+
+    public function profession()
+    {
+        return $this->belongsTo(Profession::class);
+    }
+
+    public function nationality()
+    {
+        return $this->belongsTo(Nationality::class);
+    }
 }

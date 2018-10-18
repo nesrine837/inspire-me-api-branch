@@ -18,4 +18,8 @@ class Quote extends Model
     {
         return $this->belongsTo(Quotee::class);
     }
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

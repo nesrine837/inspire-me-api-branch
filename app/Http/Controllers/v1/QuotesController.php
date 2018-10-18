@@ -18,7 +18,7 @@ class QuotesController extends Controller
 
     public function index()
     {
-        $parameter = request()->input();
-        return $this->quotes->getQuotes();
+        $parameters = request()->input();
+        return $this->quotes->getQuotes($parameters);
     }
 }
