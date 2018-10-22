@@ -9,16 +9,22 @@ use App\Services\v1\QuotesService;
 
 class QuotesController extends Controller
 {
-    protected $quotes;
+    protected $quotesService;
 
     public function __construct(QuotesService $service)
     {
-        $this->quotes = $service;
+        $this->quotesService = $service;
     }
 
     public function index()
     {
-        $parameters = request()->input();
-        return $this->quotes->getQuotes($parameters);
+        $parameters = array_change_key_case(request()->input());
+        $quotes = $this->quotesService->getQuotes($parameters);
+
+        if (empty($quotes)) {
+            return response('No Quotes found with the given criteria', 404);
+        }
+
+        return response()->json($quotes);
     }
 }

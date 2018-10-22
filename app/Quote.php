@@ -16,10 +16,10 @@ class Quote extends Model
 
     public function quotee()
     {
-        return $this->belongsTo(Quotee::class);
+        return $this->belongsTo(Quotee::class, 'quotee_id');
     }
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'category_id');
     }
 }

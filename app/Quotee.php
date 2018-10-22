@@ -13,11 +13,11 @@ class Quotee extends Model
 
     public function profession()
     {
-        return $this->belongsTo(Profession::class);
+        return $this->belongsTo(Profession::class, 'profession_id');
     }
 
     public function nationality()
     {
-        return $this->belongsTo(Nationality::class);
+        return $this->belongsTo(Nationality::class, 'nationality_id');
     }
 }
