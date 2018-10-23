@@ -3,7 +3,6 @@
 namespace App\Services\v1;
 
 use Illuminate\Support\Facades\DB;
-use App\Quote;
 
 // Handles Database requests
 class QuotesService
@@ -21,12 +20,14 @@ class QuotesService
         ],
         'matchClauses' => [
             'quotes.id' => 'quote_id',
+            'categories.id' => 'category_id',
             'quotees.id' => 'quotee_id',
             'nationalities.id' => 'nationality_id',
             'professions.id' => 'profession_id',
             'quotees.quotee_name' => 'quotee',
             'nationalities.nationality_name' => 'nationality',
-            'professions.profession_name' => 'profession'
+            'professions.profession_name' => 'profession',
+            'categories.category_name' => 'category'
         ]
 
     ];
@@ -34,7 +35,8 @@ class QuotesService
     protected $sortingFields = [
         'quotee_name' => 'quotee',
         'nationality_name' => 'nationality',
-        'profession_name' => 'profession'
+        'profession_name' => 'profession',
+        'category_name' => 'category'
     ];
 
     protected $requiredIncludes = [
@@ -43,7 +45,10 @@ class QuotesService
                             'nationality_name'],
         'professions' => [  'professions.id',
                             'professions.profession_name',
-                            'profession_name']
+                            'profession_name'],
+        'categories' => [   'categories.id',
+                            'categories.category_name',
+                            'category_name']
     ];
 
 
