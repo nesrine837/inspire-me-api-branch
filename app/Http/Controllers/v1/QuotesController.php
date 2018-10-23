@@ -27,4 +27,12 @@ class QuotesController extends Controller
 
         return response()->json($quotes);
     }
+
+    public function show($id)
+    {
+        $parameters = array_change_key_case(request()->input());
+        $parameters['quote_id'] = $id;
+        $quotes = $this->quotesService->getQuotes($parameters);
+        return $quotes;
+    }
 }
