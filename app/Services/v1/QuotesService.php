@@ -3,16 +3,25 @@
 namespace App\Services\v1;
 
 use Illuminate\Support\Facades\DB;
+use App\Classes\QueryBuilder;
 
 // Handles Database requests
-class QuotesService
+class QuotesService extends QueryBuilder
 {
+    # What table this service works with
+    protected $table = 'quotes';
+
+    ###################################################
+    ############ Operation Arrays #####################
+    ###################################################
+    # What includes are allowed
     protected $supportedIncludes = [
         'nationalities' => 'nationality',
         'professions' => 'profession',
         'categories' => 'category'
     ];
 
+    # Supported where clauses
     protected $clauseProperties = [
         'likeClauses' => [
         'keywords' => 'keywords',
@@ -32,6 +41,7 @@ class QuotesService
 
     ];
 
+    # How results can be ordered by
     protected $sortingFields = [
         'quotee_name' => 'quotee',
         'nationality_name' => 'nationality',
@@ -39,6 +49,11 @@ class QuotesService
         'category_name' => 'category'
     ];
 
+    # An array to check what includes are required
+    # if they are not found in the parameters
+    # includes that are not explicitly asked
+    # will not be shown in the final results
+    # but the joins necessary will be added
     protected $requiredIncludes = [
         'nationalities' => ['nationalities.id',
                             'nationalities.nationality_name',
@@ -51,12 +66,17 @@ class QuotesService
                             'category_name']
     ];
 
-
+    # Array to distinguish what fields belong to
+    # the quotee table
     private $quoteeFields = [
         'nationality',
         'profession'
     ];
 
+    #################################################
+
+
+    # Main function that returns query results
     public function getQuotes($parameters)
     {
         // Check if parameters is defined

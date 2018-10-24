@@ -33,6 +33,6 @@ class QuotesController extends Controller
         $parameters = array_change_key_case(request()->input());
         $parameters['quote_id'] = $id;
         $quotes = $this->quotesService->getQuotes($parameters);
-        return $quotes;
+        return response()->json($quotes);
     }
 }
