@@ -4,6 +4,7 @@ namespace App\Providers\v1;
 
 use Illuminate\Support\ServiceProvider;
 use App\Services\v1\QuotesService;
+use App\Services\v1\QuoteesService;
 
 class InspireMeProvider extends ServiceProvider
 {
@@ -26,6 +27,10 @@ class InspireMeProvider extends ServiceProvider
     {
         $this->app->bind(QuotesService::class, function ($app) {
             return new QuotesService();
+        });
+
+        $this->app->bind(QuoteesService::class, function ($app) {
+            return new QuoteesService();
         });
     }
 }
