@@ -79,23 +79,13 @@ class QuotesService extends QueryBuilder
     # Main function that returns query results
     public function getQuotes($parameters)
     {
-        // Check if parameters is defined
-        if (empty($parameters)) {
-            // Get all quotes
-            return $this->filterQuotes($this->buildQuery()->get());
-        }
+        $query = $this->buildQuery($parameters);
 
-        $includes = $this->getIncludes($parameters);
-        $clauses = $this->getWhereClauses($parameters);
-        $sorting = $this->getSorting($parameters);
-
-        $query = $this->buildQuery($includes, $clauses, $sorting);
-
-        return $this->filterQuotes($query->get(), $includes);
+        return $this->filterQuotes($query->get());
     }
 
     // Filters what fields are shown
-    protected function filterQuotes($quotes, $params = [])
+    protected function filterQuotes($quotes)
     {
         // Array to hold the data
         $data = [];
@@ -111,19 +101,19 @@ class QuotesService extends QueryBuilder
                     'name' => $quote->quotee_name,
                     ]
             ];
-            if (in_array('profession', $params)) {
+            if (isset($quote->profession_id)) {
                 $entry['quotee']['profession'] = [
                             'id' => $quote->profession_id,
                             'name' => $quote->profession_name
                     ];
             }
-            if (in_array('nationality', $params)) {
+            if (isset($quote->nationality_id)) {
                 $entry['quotee']['nationality'] = [
                             'id' => $quote->nationality_id,
                             'name' => $quote->nationality_name
                     ];
             }
-            if (in_array('category', $params)) {
+            if (isset($quote->category_id)) {
                 $entry['category'] = [
                     'id' => $quote->category_id,
                     'name' => $quote->category_name

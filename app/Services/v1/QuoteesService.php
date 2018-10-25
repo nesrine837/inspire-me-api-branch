@@ -40,23 +40,13 @@ class QuoteesService extends QueryBuilder
 
     public function getQuotees($parameters)
     {
-        // Check if parameters is defined
-        if (empty($parameters)) {
-            // Get all quotes
-            return $this->filterQuotes($this->buildQuery()->get());
-        }
+        $query = $this->buildQuery($parameters);
 
-        $includes = $this->getIncludes($parameters);
-        $clauses = $this->getWhereClauses($parameters);
-        $sorting = $this->getSorting($parameters);
-
-        $query = $this->buildQuery($includes, $clauses, $sorting);
-
-        return $this->filterQuotes($query->get(), $includes);
+        return $this->filterQuotes($query->get());
     }
 
     // Filters what fields are shown
-    protected function filterQuotes($quotees, $params = [])
+    protected function filterQuotes($quotees)
     {
         // Array to hold the data
         $data = [];
@@ -77,7 +67,7 @@ class QuoteesService extends QueryBuilder
                 ]
             ];
 
-            if (in_array('quote_count', $params)) {
+            if (isset($quotee->quote_count)) {
                 $entry['quote_count'] = $quotee->quote_count;
             }
             // Add entry to data array

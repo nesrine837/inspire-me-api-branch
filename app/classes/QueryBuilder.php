@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\DB;
 abstract class QueryBuilder
 {
     protected $table;
+
+    abstract protected function filterQuotes($quotes);
+    abstract protected function addSelects(&$query, $includes);
+    abstract protected function addJoins(&$query, $includes);
     # Parses includes from parameters
     protected function getIncludes($parameters = [])
     {
@@ -65,9 +69,13 @@ abstract class QueryBuilder
     }
 
     # Builds a query based on what is passed to it
-    protected function buildQuery($includes=[], $clauses=[], $sorts = [])
+    protected function buildQuery($parameters = [])
     {
         $basicQuery = DB::table($this->table);
+
+        $includes = $this->getIncludes($parameters);
+        $clauses = $this->getWhereClauses($parameters);
+        $sorts = $this->getSorting($parameters);
 
         # Passes $includes by reference
         $this->addMissingIncludes($includes, $clauses, $sorts);
@@ -114,10 +122,6 @@ abstract class QueryBuilder
             }
         }
     }
-
-    abstract protected function addSelects(&$query, $includes);
-
-    abstract protected function addJoins(&$query, $includes);
 
     protected function addWhereClauses(&$query, $clauseArray)
     {
