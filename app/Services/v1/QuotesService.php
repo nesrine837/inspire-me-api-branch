@@ -43,10 +43,18 @@ class QuotesService extends QueryBuilder
 
     # How results can be ordered by
     protected $sortingFields = [
-        'quotee_name' => 'quotee',
-        'nationality_name' => 'nationality',
-        'profession_name' => 'profession',
-        'category_name' => 'category'
+        'quotee_name asc' => 'quotee',
+        'quotee_name asc' => 'quotee_asc',
+        'quotee_name desc' => 'quotee_desc',
+        'nationality_name asc' => 'nationality',
+        'nationality_name asc' => 'nationality_asc',
+        'nationality_name desc' => 'nationality_desc',
+        'profession_name asc' => 'profession',
+        'profession_name asc' => 'profession_asc',
+        'profession_name desc' => 'profession_desc',
+        'category_name asc' => 'category',
+        'category_name asc' => 'category_asc',
+        'category_name desc' => 'category_desc',
     ];
 
     # An array to check what includes are required
@@ -57,13 +65,16 @@ class QuotesService extends QueryBuilder
     protected $requiredIncludes = [
         'nationalities' => ['nationalities.id',
                             'nationalities.nationality_name',
-                            'nationality_name'],
+                            'nationality_name asc',
+                            'nationality_name desc'],
         'professions' => [  'professions.id',
                             'professions.profession_name',
-                            'profession_name'],
+                            'profession_name asc',
+                            'profession_name desc'],
         'categories' => [   'categories.id',
                             'categories.category_name',
-                            'category_name']
+                            'category_name asc',
+                            'category_name desc']
     ];
 
     # Array to distinguish what fields belong to

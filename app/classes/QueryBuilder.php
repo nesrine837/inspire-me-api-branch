@@ -143,7 +143,8 @@ abstract class QueryBuilder
     protected function addOrderBys(&$query, $sorts)
     {
         foreach ($sorts as $key=>$value) {
-            $query->orderBy($key);
+            $sort = explode(' ', $key);
+            $query->orderBy($sort[0], $sort[1]);
         }
     }
     protected function parseLikeClauses(&$query, $clauses)

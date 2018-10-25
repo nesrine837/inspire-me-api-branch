@@ -28,13 +28,19 @@ class QuoteesService extends QueryBuilder
     ];
 
     protected $sortingFields = [
-        'quote_count' => 'quote_count',
-        'quotee_name' => 'name'
+        'quote_count asc' => 'quote_count',
+        'quote_count asc' => 'quote_count_asc',
+        'quote_count desc' => 'quote_count_desc',
+        'quotee_name asc' => 'name',
+        'quotee_name asc' => 'name_asc',
+        'quotee_name desc' => 'name_desc'
     ];
 
     protected $requiredIncludes = [
         'quotes' => [
-            'quote_count'
+            'quote_count',
+            'quote_count asc',
+            'quote_count desc'
         ]
     ];
 
