@@ -4,10 +4,27 @@ namespace App\Classes;
 
 use Illuminate\Support\Facades\DB;
 
-abstract class QueryBuilder
+abstract class AbstractService
 {
     protected $table;
+    ###################################################
+    ############ Operation Arrays #####################
+    ###################################################
+    # What includes are allowed
+    protected $supportedIncludes;
 
+    # Supported where clauses
+    protected $clauseProperties;
+
+    # How results can be ordered by
+    protected $sortingFields;
+
+    # An array to check what includes are required
+    # if they are not found in the parameters
+    protected $requiredIncludes;
+
+
+    # Functions that will differ from service to service
     abstract protected function filterQuotes($quotes);
     abstract protected function addSelects(&$query, $includes);
     abstract protected function addJoins(&$query, $includes);
@@ -95,6 +112,7 @@ abstract class QueryBuilder
         return $basicQuery;
     }
 
+    # Adds includes based on the arguments passed in the request
     protected function addMissingIncludes(&$includes, $clauses, $sorts)
     {
         $operationArray = [];
@@ -123,6 +141,7 @@ abstract class QueryBuilder
         }
     }
 
+    # sends the clause array to different functions to be parsed
     protected function addWhereClauses(&$query, $clauseArray)
     {
         if (isset($clauseArray['likeClauses'])) {
@@ -134,19 +153,15 @@ abstract class QueryBuilder
         }
     }
 
+    # Parses match clauses
     protected function parseMatchClauses(&$query, $clauses)
     {
         foreach ($clauses as $key => $value) {
             $query->where($key, '=', $value);
         }
     }
-    protected function addOrderBys(&$query, $sorts)
-    {
-        foreach ($sorts as $key=>$value) {
-            $sort = explode(' ', $key);
-            $query->orderBy($sort[0], $sort[1]);
-        }
-    }
+
+    # Parse like clauses
     protected function parseLikeClauses(&$query, $clauses)
     {
         foreach ($clauses as $key => $value) {
@@ -159,6 +174,15 @@ abstract class QueryBuilder
                 continue;
             }
             $query->where($key, 'like', '%' . $term . '%');
+        }
+    }
+
+    # Adds order bys to the query
+    protected function addOrderBys(&$query, $sorts)
+    {
+        foreach ($sorts as $key=>$value) {
+            $sort = explode(' ', $key);
+            $query->orderBy($sort[0], $sort[1]);
         }
     }
 }

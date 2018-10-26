@@ -3,9 +3,9 @@
 namespace App\Services\v1;
 
 use Illuminate\Support\Facades\DB;
-use App\Classes\QueryBuilder;
+use App\Classes\AbstractService;
 
-class QuoteesService extends QueryBuilder
+class QuoteesService extends AbstractService
 {
     # What table this service works with
     protected $table = 'quotees';
