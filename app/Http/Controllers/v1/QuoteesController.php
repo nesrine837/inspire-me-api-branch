@@ -17,6 +17,15 @@ class QuoteesController extends Controller
     public function index()
     {
         $parameters = array_change_key_case(request()->input());
-        return $this->quoteesService->GetQuotees($parameters);
+        $quotees = $this->quoteesService->getQuotees($parameters);
+        return response()->json($quotees);
+    }
+
+    public function show($id)
+    {
+        $parameters = array_change_key_case(request()->input());
+        $parameters['quotee_id'] = $id;
+        $quotees = $this->quoteesService->getQuotees($parameters);
+        return response()->json($quotees);
     }
 }
