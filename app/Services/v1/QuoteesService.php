@@ -7,12 +7,18 @@ use App\Classes\QueryBuilder;
 
 class QuoteesService extends QueryBuilder
 {
+    # What table this service works with
     protected $table = 'quotees';
 
+    ###################################################
+    ############ Operation Arrays #####################
+    ###################################################
+    # What includes are allowed
     protected $supportedIncludes = [
         'quotes' => 'quote_count'
     ];
 
+    # Supported where clauses
     protected $clauseProperties = [
         'likeClauses' => [
         ],
@@ -27,6 +33,7 @@ class QuoteesService extends QueryBuilder
 
     ];
 
+    # How results can be ordered by
     protected $sortingFields = [
         'quote_count asc' => 'quote_count',
         'quote_count asc' => 'quote_count_asc',
@@ -36,6 +43,9 @@ class QuoteesService extends QueryBuilder
         'quotee_name desc' => 'name_desc'
     ];
 
+    # An array to check what includes are required
+    # if they are not found in the include parameter
+    # of the request
     protected $requiredIncludes = [
         'quotes' => [
             'quote_count',
@@ -43,7 +53,9 @@ class QuoteesService extends QueryBuilder
             'quote_count desc'
         ]
     ];
+    #################################################
 
+    # Main function that returns query results
     public function getQuotees($parameters)
     {
         $query = $this->buildQuery($parameters);
@@ -83,13 +95,17 @@ class QuoteesService extends QueryBuilder
         return $data;
     }
 
+    # Add necessary selects for the query
     protected function addSelects(&$query, $includes)
     {
+        # Selects part of every query
         $quoteesSelect = ['quotees.id as quotee_id','quotees.quotee_name','quotees.biography_link'];
         $nationalitiesSelect = ['nationalities.id as nationality_id', 'nationalities.nationality_name as nationality_name'];
         $professionsSelect = ['professions.id as profession_id', 'professions.profession_name as profession_name'];
+
         $includeSelects = [];
 
+        # Add selects based includes in the parameters
         if (!empty($includes)) {
             foreach ($includes as $key=>$value) {
                 if ($key == 'quotes') {
@@ -106,11 +122,14 @@ class QuoteesService extends QueryBuilder
         $query->select($selectArray);
     }
 
+    # Adds necessary joins for the query
     protected function addJoins(&$query, $includes)
     {
+        #joins part of every query
         $query  ->join('nationalities', 'quotees.nationality_id', 'nationalities.id')
                 ->join('professions', 'quotees.profession_id', 'professions.id');
 
+        # Add joins based on the includes
         if (isset($includes['quotes'])) {
             $query->join('quotes', 'quotes.quotee_id', 'quotees.id');
             $query->groupBy('quotee_id');
