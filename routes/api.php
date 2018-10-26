@@ -21,3 +21,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('/v1/quotes', v1\QuotesController::class);
 Route::resource('/v1/quotees', v1\QuoteesController::class);
+Route::resource('/v1/nationalities', v1\NationalitiesController::class);
