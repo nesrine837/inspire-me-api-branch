@@ -58,10 +58,8 @@ class QuotesService extends QueryBuilder
     ];
 
     # An array to check what includes are required
-    # if they are not found in the parameters
-    # includes that are not explicitly asked
-    # will not be shown in the final results
-    # but the joins necessary will be added
+    # if they are not found in the include parameter
+    # of the request
     protected $requiredIncludes = [
         'nationalities' => ['nationalities.id',
                             'nationalities.nationality_name',
@@ -138,12 +136,16 @@ class QuotesService extends QueryBuilder
         return $data;
     }
 
+    # Add necessary selects for the query
     protected function addSelects(&$query, $includes)
     {
+        # Selects part of every query
         $quotesSelect = ['quotes.id as quote_id','quotes.quote_content','quotes.keywords'];
         $quoteesSelect = ['quotees.id as quotee_id','quotees.quotee_name','quotees.biography_link'];
+
         $includeSelects = [];
 
+        # Add selects based includes in the parameters
         if (!empty($includes)) {
             foreach ($includes as $key=>$value) {
                 $includeSelects[] = $key . '.id as ' . $value . '_id';
@@ -156,9 +158,13 @@ class QuotesService extends QueryBuilder
         $query->select($selectArray);
     }
 
+    # Adds necessary joins for the query
     protected function addJoins(&$query, $includes)
     {
+        #joins part of every query
         $query->join('quotees', 'quotes.quotee_id', 'quotees.id');
+
+        # Add joins based on the includes
         foreach ($includes as $key=>$value) {
             if (in_array($value, $this->quoteeFields)) {
                 $query->join($key, 'quotees.' . $value . '_id', '=', $key . '.id');
