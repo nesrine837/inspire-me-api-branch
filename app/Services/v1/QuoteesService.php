@@ -19,6 +19,7 @@ class QuoteesService extends AbstractService
     ];
 
     # Supported where clauses
+    # Inner Arrays: Key is the column and value is the url parameter
     protected $clauseProperties = [
         'likeClauses' => [
         ],
@@ -27,6 +28,7 @@ class QuoteesService extends AbstractService
             'nationalities.id' => 'nationality_id',
             'professions.id' => 'profession_id',
             'quotees.quotee_name' => 'quotee',
+            'quotees.quotee_gender' => 'gender',
             'nationalities.nationality_name' => 'nationality',
             'professions.profession_name' => 'profession'
         ]
@@ -34,13 +36,20 @@ class QuoteesService extends AbstractService
     ];
 
     # How results can be ordered by
+    # Key is the url parameter and value is the column and order
     protected $sortingFields = [
-        'quote_count asc' => 'quote_count',
-        'quote_count asc' => 'quote_count_asc',
-        'quote_count desc' => 'quote_count_desc',
-        'quotee_name asc' => 'name',
-        'quotee_name asc' => 'name_asc',
-        'quotee_name desc' => 'name_desc'
+        'quote_count'=>'quote_count asc',
+        'quote_count_asc'=>'quote_count asc',
+        'quote_count_desc'=>'quote_count desc',
+        'name'=>'quotee_name asc',
+        'name_asc'=>'quotee_name asc',
+        'name_desc'=>'quotee_name desc',
+        'profession'=>'profession_name asc',
+        'profession_asc'=>'profession_name asc',
+        'profession_desc'=>'profession_name desc',
+        'nationality'=>'nationality_name asc',
+        'nationality_asc'=>'nationality_name asc',
+        'nationality_desc'=>'nationality_name desc'
     ];
 
     # An array to check what includes are required
@@ -48,7 +57,6 @@ class QuoteesService extends AbstractService
     # of the request
     protected $requiredIncludes = [
         'quotes' => [
-            'quote_count',
             'quote_count asc',
             'quote_count desc'
         ]
@@ -75,6 +83,7 @@ class QuoteesService extends AbstractService
                 'quotee_id' => $quotee->quotee_id,
                 'quotee_name' => $quotee->quotee_name,
                 'biography_link' => $quotee->biography_link,
+                'quotee_gender' => $quotee->quotee_gender == 'm' ? 'Male' : 'Female',
                 'profession' => [
                     'id' => $quotee->profession_id,
                     'name' => $quotee->profession_name
@@ -99,7 +108,7 @@ class QuoteesService extends AbstractService
     protected function addSelects(&$query, $includes)
     {
         # Selects part of every query
-        $quoteesSelect = ['quotees.id as quotee_id','quotees.quotee_name','quotees.biography_link'];
+        $quoteesSelect = ['quotees.id as quotee_id','quotees.quotee_name','quotees.biography_link', 'quotees.quotee_gender'];
         $nationalitiesSelect = ['nationalities.id as nationality_id', 'nationalities.nationality_name as nationality_name'];
         $professionsSelect = ['professions.id as profession_id', 'professions.profession_name as profession_name'];
 

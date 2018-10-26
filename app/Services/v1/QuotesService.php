@@ -22,6 +22,7 @@ class QuotesService extends AbstractService
     ];
 
     # Supported where clauses
+    # Inner Arrays: Key is the column and value is the url parameter
     protected $clauseProperties = [
         'likeClauses' => [
         'keywords' => 'keywords',
@@ -36,25 +37,27 @@ class QuotesService extends AbstractService
             'quotees.quotee_name' => 'quotee',
             'nationalities.nationality_name' => 'nationality',
             'professions.profession_name' => 'profession',
-            'categories.category_name' => 'category'
+            'categories.category_name' => 'category',
+            'quotees.quotee_gender' => 'gender'
         ]
 
     ];
 
     # How results can be ordered by
+    # Key is the url parameter and value is the column and order
     protected $sortingFields = [
-        'quotee_name asc' => 'quotee',
-        'quotee_name asc' => 'quotee_asc',
-        'quotee_name desc' => 'quotee_desc',
-        'nationality_name asc' => 'nationality',
-        'nationality_name asc' => 'nationality_asc',
-        'nationality_name desc' => 'nationality_desc',
-        'profession_name asc' => 'profession',
-        'profession_name asc' => 'profession_asc',
-        'profession_name desc' => 'profession_desc',
-        'category_name asc' => 'category',
-        'category_name asc' => 'category_asc',
-        'category_name desc' => 'category_desc',
+        'quotee'=>'quotee_name asc',
+        'quotee_asc'=>'quotee_name asc',
+        'quotee_desc'=>'quotee_name desc',
+        'nationality'=>'nationality_name asc',
+        'nationality_asc'=>'nationality_name asc',
+        'nationality_desc'=>'nationality_name desc',
+        'profession'=>'profession_name asc',
+        'profession_asc'=>'profession_name asc',
+        'profession_desc'=>'profession_name desc',
+        'category'=>'category_name asc',
+        'category_asc'=>'category_name asc',
+        'category_desc'=>'category_name desc'
     ];
 
     # An array to check what includes are required
@@ -108,6 +111,7 @@ class QuotesService extends AbstractService
                 'quotee' => [
                     'id' => $quote->quotee_id,
                     'name' => $quote->quotee_name,
+                    'gender' => $quote->quotee_gender == 'm' ? 'Male' : 'Female'
                     ]
             ];
             if (isset($quote->profession_id)) {
@@ -141,7 +145,7 @@ class QuotesService extends AbstractService
     {
         # Selects part of every query
         $quotesSelect = ['quotes.id as quote_id','quotes.quote_content','quotes.keywords'];
-        $quoteesSelect = ['quotees.id as quotee_id','quotees.quotee_name','quotees.biography_link'];
+        $quoteesSelect = ['quotees.id as quotee_id','quotees.quotee_name','quotees.biography_link', 'quotees.quotee_gender'];
 
         $includeSelects = [];
 

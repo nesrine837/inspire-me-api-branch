@@ -17,11 +17,14 @@ abstract class AbstractService
     protected $clauseProperties;
 
     # How results can be ordered by
+    # Key is the url parameter and value is the column and order
     protected $sortingFields;
 
     # An array to check what includes are required
     # if they are not found in the parameters
     protected $requiredIncludes;
+
+    #################################################
 
 
     # Functions that will differ from service to service
@@ -56,8 +59,8 @@ abstract class AbstractService
             foreach ($this->sortingFields as $sortKey=>$sortVal) {
                 # Iterates through parameter array
                 foreach ($sortParams as $param) {
-                    if ($param == $sortVal) {
-                        $sorts[$sortKey] = $sortVal;
+                    if ($param == $sortKey) {
+                        $sorts[$sortVal] = $sortKey;
                     }
                 }
             }
@@ -107,8 +110,6 @@ abstract class AbstractService
         $this->addOrderBys($basicQuery, $sorts);
         #################################
 
-
-        #dd($basicQuery->toSql(), $basicQuery->getBindings());
         return $basicQuery;
     }
 
