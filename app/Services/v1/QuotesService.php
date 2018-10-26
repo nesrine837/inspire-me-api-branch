@@ -93,11 +93,11 @@ class QuotesService extends AbstractService
     {
         $query = $this->buildQuery($parameters);
 
-        return $this->filterQuotes($query->get());
+        return $this->filter($query->get());
     }
 
     // Filters what fields are shown
-    protected function filterQuotes($quotes)
+    protected function filter($quotes)
     {
         // Array to hold the data
         $data = [];

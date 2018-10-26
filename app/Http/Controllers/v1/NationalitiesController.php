@@ -17,7 +17,7 @@ class NationalitiesController extends Controller
     public function index()
     {
         $parameters = array_change_key_case(request()->input());
-        $nationalities = $this->nationalitiesService->getQuotees($parameters);
+        $nationalities = $this->nationalitiesService->getNationalities($parameters);
         return response()->json($nationalities);
     }
 }

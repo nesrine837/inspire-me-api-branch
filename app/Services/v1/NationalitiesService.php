@@ -54,37 +54,28 @@ class NationalitiesService extends AbstractService
     #################################################
 
     # Main function that returns query results
-    public function getQuotees($parameters)
+    public function getNationalities($parameters)
     {
         $query = $this->buildQuery($parameters);
 
-        return $query->get();
+        return $this->filter($query->get());
     }
 
     // Filters what fields are shown
-    protected function filterQuotes($quotees)
+    protected function filter($nationalities)
     {
         // Array to hold the data
         $data = [];
         // Iterate over results
         // and choose what fields to keep
-        foreach ($quotees as $quotee) {
+        foreach ($nationalities as $nationality) {
             $entry = [
-                'quotee_id' => $quotee->quotee_id,
-                'quotee_name' => $quotee->quotee_name,
-                'biography_link' => $quotee->biography_link,
-                'profession' => [
-                    'id' => $quotee->profession_id,
-                    'name' => $quotee->profession_name
-                ],
-                'nationality' => [
-                    'id' => $quotee->nationality_id,
-                    'name' => $quotee->nationality_name
-                ]
+                'nationality_id' => $nationality->nationality_id,
+                'nationality_name' => $nationality->nationality_name,
             ];
 
-            if (isset($quotee->quote_count)) {
-                $entry['quote_count'] = $quotee->quote_count;
+            if (isset($nationality->quotee_count)) {
+                $entry['quotee_count'] = $nationality->quotee_count;
             }
             // Add entry to data array
             $data[] = $entry;

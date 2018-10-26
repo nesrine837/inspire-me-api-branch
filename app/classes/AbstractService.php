@@ -28,7 +28,7 @@ abstract class AbstractService
 
 
     # Functions that will differ from service to service
-    abstract protected function filterQuotes($quotes);
+    abstract protected function filter($quotes);
     abstract protected function addSelects(&$query, $includes);
     abstract protected function addJoins(&$query, $includes);
     # Parses includes from parameters
