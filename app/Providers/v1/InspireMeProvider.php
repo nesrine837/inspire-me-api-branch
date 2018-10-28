@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use App\Services\v1\QuotesService;
 use App\Services\v1\QuoteesService;
 use App\Services\v1\NationalitiesService;
+use App\Services\v1\ProfessionsService;
 
 class InspireMeProvider extends ServiceProvider
 {
@@ -35,6 +36,9 @@ class InspireMeProvider extends ServiceProvider
         });
         $this->app->bind(NationalitiesService::class, function ($app) {
             return new NationalitiesService();
+        });
+        $this->app->bind(ProfessionsService::class, function ($app) {
+            return new ProfessionsService();
         });
     }
 }
