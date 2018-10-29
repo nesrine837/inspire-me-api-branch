@@ -23,3 +23,4 @@ Route::resource('/v1/quotes', v1\QuotesController::class);
 Route::resource('/v1/quotees', v1\QuoteesController::class);
 Route::resource('/v1/nationalities', v1\NationalitiesController::class);
 Route::resource('/v1/professions', v1\ProfessionsController::class);
+Route::resource('/v1/categories', v1\CategoriesController::class);

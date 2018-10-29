@@ -40,5 +40,8 @@ class InspireMeProvider extends ServiceProvider
         $this->app->bind(ProfessionsService::class, function ($app) {
             return new ProfessionsService();
         });
+        $this->app->bind(CategoriesService::class, function ($app) {
+            return new CategoriesService();
+        });
     }
 }
