@@ -26,6 +26,7 @@ abstract class AbstractService
 
     #################################################
 
+    protected $defaultRecordLimit;
 
     # Functions that will differ from service to service
     abstract protected function filter($quotes);
@@ -88,6 +89,30 @@ abstract class AbstractService
         return $clauses;
     }
 
+    # Get record limit from parameters
+    protected function getLimit($parameters=[])
+    {
+        # Set default
+        if (!isset($parameters['limit']) || !is_numeric($parameters['limit']) || $parameters['limit'] > 200) {
+            return $this->defaultRecordLimit;
+        }
+
+        $limit = floor($parameters['limit']);
+
+        return $limit;
+    }
+
+    protected function getOffsetMultiplier($parameters=[])
+    {
+        if (!isset($parameters['page']) || !is_numeric($parameters['page'])) {
+            return 0;
+        }
+
+        $page = floor($parameters['page'] - 1);
+
+        return $page < 0 ? 0 : $page;
+    }
+
     # Builds a query based on what is passed to it
     protected function buildQuery($parameters = [])
     {
@@ -96,6 +121,8 @@ abstract class AbstractService
         $includes = $this->getIncludes($parameters);
         $clauses = $this->getWhereClauses($parameters);
         $sorts = $this->getSorting($parameters);
+        $limit = $this->getLimit($parameters);
+        $offsetMultiplier = $this->getOffsetMultiplier($parameters);
 
         # Passes $includes by reference
         $this->addMissingIncludes($includes, $clauses, $sorts);
@@ -108,6 +135,8 @@ abstract class AbstractService
         $this->addJoins($basicQuery, $includes);
         $this->addWhereClauses($basicQuery, $clauses);
         $this->addOrderBys($basicQuery, $sorts);
+        $this->addLimit($basicQuery, $limit);
+        $this->addOffset($basicQuery, $limit, $offsetMultiplier);
         #################################
 
         return $basicQuery;
@@ -185,5 +214,18 @@ abstract class AbstractService
             $sort = explode(' ', $key);
             $query->orderBy($sort[0], $sort[1]);
         }
+    }
+
+    # Add a limit to retrieved records
+    protected function addLimit(&$query, $limit)
+    {
+        $query->limit($limit);
+    }
+
+    # Add an offset to retrieved records
+    protected function addOffset(&$query, $limit, $offsetMultiplier)
+    {
+        $offset = $limit * $offsetMultiplier;
+        $query->offset($offset);
     }
 }

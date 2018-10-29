@@ -9,6 +9,7 @@ class NationalitiesService extends AbstractService
 {
     # What table this service works with
     protected $table = 'nationalities';
+    protected $defaultRecordLimit = 25;
 
     ###################################################
     ############ Operation Arrays #####################

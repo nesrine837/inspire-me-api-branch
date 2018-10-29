@@ -11,6 +11,8 @@ class QuotesService extends AbstractService
     # What table this service works with
     protected $table = 'quotes';
 
+    protected $defaultRecordLimit = 25;
+
     ###################################################
     ############ Operation Arrays #####################
     ###################################################
