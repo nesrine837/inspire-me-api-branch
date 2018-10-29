@@ -3,9 +3,9 @@
 namespace App\Services\v1;
 
 use Illuminate\Support\Facades\DB;
-use App\Classes\AbstractService;
+use App\Classes\AbstractQueryBuilderService;
 
-class NationalitiesService extends AbstractService
+class NationalitiesService extends AbstractQueryBuilderService
 {
     # What table this service works with
     protected $table = 'nationalities';

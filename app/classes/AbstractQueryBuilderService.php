@@ -4,9 +4,11 @@ namespace App\Classes;
 
 use Illuminate\Support\Facades\DB;
 
-abstract class AbstractService
+abstract class AbstractQueryBuilderService
 {
     protected $table;
+    protected $defaultRecordLimit;
+
     ###################################################
     ############ Operation Arrays #####################
     ###################################################
@@ -26,7 +28,7 @@ abstract class AbstractService
 
     #################################################
 
-    protected $defaultRecordLimit;
+
 
     # Functions that will differ from service to service
     abstract protected function filter($quotes);
@@ -102,6 +104,8 @@ abstract class AbstractService
         return $limit;
     }
 
+    # Gets the offset multiplier from parameters
+    # User gives a page, then use the number to get the multiplier
     protected function getOffsetMultiplier($parameters=[])
     {
         if (!isset($parameters['page']) || !is_numeric($parameters['page'])) {
