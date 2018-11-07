@@ -17,10 +17,14 @@ class NewProject extends Mailable
      * @return void
      */
 
-    public $info;
+    public $name;
+    public $email;
+    public $message;
     public function __construct($info)
     {
-        $this->info = $info;
+        $this->name = $info['name'];
+        $this->email = $info['email'];
+        $this->message = $info['message'];
     }
 
     /**
