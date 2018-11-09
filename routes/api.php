@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-
+Route::redirect('/', 'https://github.com/Red-Mountain-Dev/inspire-me-api', 301);
 Route::resource('/v1/quotes', v1\QuotesController::class);
 Route::resource('/v1/quotees', v1\QuoteesController::class);
 Route::resource('/v1/nationalities', v1\NationalitiesController::class);
