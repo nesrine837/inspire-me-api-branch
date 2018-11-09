@@ -19,13 +19,13 @@ class NewProject extends Mailable
 
     public $name;
     public $email;
-    public $message;
+    public $content;
     public $cell;
     public function __construct($info)
     {
         $this->name = $info['name'];
         $this->email = $info['email'];
-        $this->message = wordwrap($info['message'], 75, "<br/>");
+        $this->content = wordwrap($info['message'], 75, "<br/>");
         $this->cell = isset($info['cell']) ? $info['cell'] : '';
     }
 

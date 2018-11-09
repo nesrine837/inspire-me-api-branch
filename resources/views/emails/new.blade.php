@@ -2,4 +2,4 @@
 <h2>Email: {{$email}}</h2>
 <h2>Cell: {{$cell}}</h2>
 
-<p>{{message}}</p>
+<p>{{$content }}</p>

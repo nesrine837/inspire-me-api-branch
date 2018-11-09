@@ -15,7 +15,6 @@ class MailerController extends Controller
         $request->validate([
             'name' => 'required|min:2|max:40',
             'email' => 'required|email',
-            'cell' => 'min:10|max:10',
             'message' => 'required|max:500'
         ]);
 
