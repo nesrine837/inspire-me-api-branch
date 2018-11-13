@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 abstract class AbstractQueryBuilderService
 {
     protected $table;
-    protected $defaultRecordLimit;
+    protected $defaultRecordLimit = 25;
 
     ###################################################
     ############ Operation Arrays #####################

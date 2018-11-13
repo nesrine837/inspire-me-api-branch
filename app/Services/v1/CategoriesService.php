@@ -9,7 +9,6 @@ class CategoriesService extends AbstractQueryBuilderService
 {
     # What table this service works with
     protected $table = 'categories';
-    protected $defaultRecordLimit = 25;
 
     ###################################################
     ############ Operation Arrays #####################

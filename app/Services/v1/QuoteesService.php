@@ -9,7 +9,6 @@ class QuoteesService extends AbstractQueryBuilderService
 {
     # What table this service works with
     protected $table = 'quotees';
-    protected $defaultRecordLimit = 25;
 
     ###################################################
     ############ Operation Arrays #####################
