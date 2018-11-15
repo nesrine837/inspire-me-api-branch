@@ -22,10 +22,10 @@ class ProfessionsService extends AbstractQueryBuilderService
     # Inner Arrays: Key is the column and value is the url parameter
     protected $clauseProperties = [
         'likeClauses' => [
+            'professions.profession_name' => 'profession',
         ],
         'matchClauses' => [
             'professions.id' => 'profession_id',
-            'professions.profession_name' => 'profession',
         ]
 
     ];

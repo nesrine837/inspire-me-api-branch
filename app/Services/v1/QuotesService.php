@@ -26,7 +26,12 @@ class QuotesService extends AbstractQueryBuilderService
     protected $clauseProperties = [
         'likeClauses' => [
         'keywords' => 'keywords',
-        'quote_content' => 'content'
+        'quote_content' => 'content',
+        'quotees.quotee_name' => 'quotee',
+        'nationalities.nationality_name' => 'nationality',
+        'professions.profession_name' => 'profession',
+        'categories.category_name' => 'category',
+        'quotees.quotee_gender' => 'gender'
         ],
         'matchClauses' => [
             'quotes.id' => 'quote_id',
@@ -34,11 +39,7 @@ class QuotesService extends AbstractQueryBuilderService
             'quotees.id' => 'quotee_id',
             'nationalities.id' => 'nationality_id',
             'professions.id' => 'profession_id',
-            'quotees.quotee_name' => 'quotee',
-            'nationalities.nationality_name' => 'nationality',
-            'professions.profession_name' => 'profession',
-            'categories.category_name' => 'category',
-            'quotees.quotee_gender' => 'gender'
+
         ]
 
     ];

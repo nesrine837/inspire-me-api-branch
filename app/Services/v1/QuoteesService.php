@@ -22,15 +22,16 @@ class QuoteesService extends AbstractQueryBuilderService
     # Inner Arrays: Key is the column and value is the url parameter
     protected $clauseProperties = [
         'likeClauses' => [
+            'quotees.quotee_name' => 'quotee',
+            'nationalities.nationality_name' => 'nationality',
+            'professions.profession_name' => 'profession'
         ],
         'matchClauses' => [
             'quotees.id' => 'quotee_id',
             'nationalities.id' => 'nationality_id',
             'professions.id' => 'profession_id',
-            'quotees.quotee_name' => 'quotee',
             'quotees.quotee_gender' => 'gender',
-            'nationalities.nationality_name' => 'nationality',
-            'professions.profession_name' => 'profession'
+
         ]
 
     ];
