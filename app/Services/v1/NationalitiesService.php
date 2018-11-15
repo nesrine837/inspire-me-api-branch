@@ -22,10 +22,10 @@ class NationalitiesService extends AbstractQueryBuilderService
     # Inner Arrays: Key is the column and value is the url parameter
     protected $clauseProperties = [
         'likeClauses' => [
-            'nationalities.nationality_name' => 'nationality',
+            'nationalities.nationality_name' => 'name',
         ],
         'matchClauses' => [
-            'nationalities.id' => 'nationality_id',
+            'nationalities.id' => 'id',
         ]
 
     ];

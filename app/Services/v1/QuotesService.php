@@ -34,7 +34,7 @@ class QuotesService extends AbstractQueryBuilderService
         'quotees.quotee_gender' => 'gender'
         ],
         'matchClauses' => [
-            'quotes.id' => 'quote_id',
+            'quotes.id' => 'id',
             'categories.id' => 'category_id',
             'quotees.id' => 'quotee_id',
             'nationalities.id' => 'nationality_id',

@@ -10,6 +10,8 @@ class QuoteesService extends AbstractQueryBuilderService
     # What table this service works with
     protected $table = 'quotees';
 
+    protected $hasMaxRecords = false;
+
     ###################################################
     ############ Operation Arrays #####################
     ###################################################
@@ -22,12 +24,12 @@ class QuoteesService extends AbstractQueryBuilderService
     # Inner Arrays: Key is the column and value is the url parameter
     protected $clauseProperties = [
         'likeClauses' => [
-            'quotees.quotee_name' => 'quotee',
+            'quotees.quotee_name' => 'name',
             'nationalities.nationality_name' => 'nationality',
             'professions.profession_name' => 'profession'
         ],
         'matchClauses' => [
-            'quotees.id' => 'quotee_id',
+            'quotees.id' => 'id',
             'nationalities.id' => 'nationality_id',
             'professions.id' => 'profession_id',
             'quotees.quotee_gender' => 'gender',
@@ -55,7 +57,7 @@ class QuoteesService extends AbstractQueryBuilderService
 
     # An array to check what includes are required
     # if they are not found in the include parameter
-    # of the request
+    # of the requestk
     protected $requiredIncludes = [
         'quotes' => [
             'quote_count asc',

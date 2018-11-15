@@ -24,8 +24,8 @@ class CategoriesService extends AbstractQueryBuilderService
         'likeClauses' => [
         ],
         'matchClauses' => [
-            'categories.id' => 'category_id',
-            'categories.category_name' => 'category',
+            'categories.id' => 'id',
+            'categories.category_name' => 'name',
         ]
 
     ];
