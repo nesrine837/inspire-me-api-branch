@@ -25,3 +25,7 @@ Route::resource('/v1/nationalities', v1\NationalitiesController::class);
 Route::resource('/v1/professions', v1\ProfessionsController::class);
 Route::resource('/v1/categories', v1\CategoriesController::class);
 Route::post('v1/mailer', 'v1\MailerController@newProject');
+Route::fallback(function () {
+    $data = [];
+    return response()->json($data, 404);
+});
