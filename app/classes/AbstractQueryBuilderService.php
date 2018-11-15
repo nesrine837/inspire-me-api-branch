@@ -8,6 +8,8 @@ abstract class AbstractQueryBuilderService
 {
     protected $table;
     protected $defaultRecordLimit = 25;
+    protected $maxRecords = 200;
+    protected $hasMaxRecords = true;
 
     ###################################################
     ############ Operation Arrays #####################
@@ -95,7 +97,7 @@ abstract class AbstractQueryBuilderService
     protected function getLimit($parameters=[])
     {
         # Set default
-        if (!isset($parameters['limit']) || !is_numeric($parameters['limit']) || $parameters['limit'] > 200) {
+        if (!isset($parameters['limit']) || !is_numeric($parameters['limit']) || $parameters['limit'] > $this->maxRecords) {
             return $this->defaultRecordLimit;
         }
 
@@ -223,12 +225,20 @@ abstract class AbstractQueryBuilderService
     # Add a limit to retrieved records
     protected function addLimit(&$query, $limit)
     {
+        if (!$this->hasMaxRecords) {
+            return;
+        }
+
         $query->limit($limit);
     }
 
     # Add an offset to retrieved records
     protected function addOffset(&$query, $limit, $offsetMultiplier)
     {
+        if (!$this->hasMaxRecords) {
+            return;
+        }
+
         $offset = $limit * $offsetMultiplier;
         $query->offset($offset);
     }
