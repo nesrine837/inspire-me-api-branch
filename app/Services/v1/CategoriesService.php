@@ -9,6 +9,7 @@ class CategoriesService extends AbstractQueryBuilderService
 {
     # What table this service works with
     protected $table = 'categories';
+    protected $hasMaxRecords = false;
 
     ###################################################
     ############ Operation Arrays #####################

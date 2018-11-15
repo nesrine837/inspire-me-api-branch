@@ -9,6 +9,7 @@ class ProfessionsService extends AbstractQueryBuilderService
 {
     # What table this service works with
     protected $table = 'professions';
+    protected $hasMaxRecords = false;
 
     ###################################################
     ############ Operation Arrays #####################

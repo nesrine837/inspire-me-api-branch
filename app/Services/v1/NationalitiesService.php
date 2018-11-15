@@ -9,6 +9,7 @@ class NationalitiesService extends AbstractQueryBuilderService
 {
     # What table this service works with
     protected $table = 'nationalities';
+    protected $hasMaxRecords = false;
 
     ###################################################
     ############ Operation Arrays #####################
