@@ -4,8 +4,10 @@ namespace App\Http\Controllers\v1;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 use App\Services\v1\QuotesService;
+use App\Quote;
 
 class QuotesController extends Controller
 {
@@ -34,5 +36,13 @@ class QuotesController extends Controller
         $parameters['quote_id'] = $id;
         $quotes = $this->quotesService->getQuotes($parameters);
         return response()->json($quotes);
+    }
+    public function destroy($id)
+    {
+        try {
+            Quote::where('id', $id)->firstOrFail()->delete();
+        } catch (ModelNotFoundException $ex) {
+            return response()->json([], 404);
+        }
     }
 }
