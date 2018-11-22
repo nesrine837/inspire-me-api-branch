@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Services\v1\QuoteesService;
 use Validator;
 
+use App\Quotee;
+
 class QuoteesController extends Controller
 {
     protected $quoteesService;
@@ -40,6 +42,28 @@ class QuoteesController extends Controller
         $quotees = $this->quoteesService->getQuotees($parameters);
         return response()->json($quotees);
     }
+    public function store(Request $request)
+    {
+        $validation = Validator::make($request->input(), $this->rules, $this->messages);
+        if ($validation->fails()) {
+            return response()->json($validation->messages(), 400);
+        }
+
+        $quotee = new Quotee;
+
+        $quotee->quotee_name = $request->input('quotee_name');
+        $quotee->biography_link = $request->input('biography_link');
+        $quotee->profession_id = $request->input('profession_id');
+        $quotee->nationality_id = $request->input('nationality_id');
+        $quotee->quotee_gender = $request->input('quotee_gender');
+
+        dd($quotee);
+
+        $quotee->save();
+
+        return response()->json($profession, 201);
+    }
+
     public function destroy($id)
     {
         Quotee::where('id', $id)->firstOrFail()->delete();
