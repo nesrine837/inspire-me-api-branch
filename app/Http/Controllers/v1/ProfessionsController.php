@@ -20,6 +20,7 @@ class ProfessionsController extends Controller
     public function __construct(ProfessionsService $service)
     {
         $this->professionsService = $service;
+        $this->middleware('auth:api', ['except' => ['index', 'show']]);
     }
     public function index()
     {

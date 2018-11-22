@@ -20,6 +20,7 @@ class NationalitiesController extends Controller
     public function __construct(NationalitiesService $service)
     {
         $this->nationalitiesService = $service;
+        $this->middleware('auth:api', ['except' => ['index', 'show']]);
     }
     public function index()
     {

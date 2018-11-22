@@ -20,6 +20,7 @@ class CategoriesController extends Controller
     public function __construct(CategoriesService $service)
     {
         $this->categoriesService = $service;
+        $this->middleware('auth:api', ['except' => ['index', 'show']]);
     }
     public function index()
     {
