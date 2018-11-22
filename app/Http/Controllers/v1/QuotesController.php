@@ -39,10 +39,10 @@ class QuotesController extends Controller
     }
     public function destroy($id)
     {
-        try {
-            Quote::where('id', $id)->firstOrFail()->delete();
-        } catch (ModelNotFoundException $ex) {
-            return response()->json([], 404);
-        }
+        Quote::where('id', $id)->firstOrFail()->delete();
+        $data = [
+            'message' => 'Record successfully deleted'
+        ];
+        return response()->json($data, 200);
     }
 }
