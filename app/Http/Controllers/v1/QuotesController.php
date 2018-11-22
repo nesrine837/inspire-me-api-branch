@@ -44,6 +44,14 @@ class QuotesController extends Controller
         $quotes = $this->quotesService->getQuotes($parameters);
         return response()->json($quotes);
     }
+    public function store(Request $request)
+    {
+        $validation = Validator::make($request->input(), $this->rules);
+        if ($validation->fails()) {
+            return response()->json($validation->messages(), 400);
+        }
+
+    }
     public function destroy($id)
     {
         Quote::where('id', $id)->firstOrFail()->delete();
