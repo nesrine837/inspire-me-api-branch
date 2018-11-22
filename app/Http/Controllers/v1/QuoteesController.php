@@ -59,10 +59,24 @@ class QuoteesController extends Controller
         $quotee->quotee_gender = $request->input('quotee_gender');
 
         dd($quotee);
+    public function update(Request $request, $id)
+    {
+        $validation = Validator::make($request->input(), $this->rules);
+        if ($validation->fails()) {
+            return response()->json($validation->messages(), 400);
+        }
+
+        $quotee = Quotee::where('id', $id)->firstOrFail();
+
+        $quotee->quotee_name = $request->input('quotee_name');
+        $quotee->biography_link = $request->input('biography_link');
+        $quotee->profession_id = $request->input('profession_id');
+        $quotee->nationality_id = $request->input('nationality_id');
+        $quotee->quotee_gender = $request->input('quotee_gender');
 
         $quotee->save();
 
-        return response()->json($profession, 201);
+        return response()->json($quotee, 200);
     }
 
     public function destroy($id)

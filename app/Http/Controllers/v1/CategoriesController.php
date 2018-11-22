@@ -53,6 +53,23 @@ class CategoriesController extends Controller
         return response()->json($category, 201);
     }
 
+    public function update(Request $request, $id)
+    {
+        $validation = Validator::make($request->input(), $this->rules);
+        if ($validation->fails()) {
+            return response()->json($validation->messages(), 400);
+        }
+
+        $category = Category::where('id', $id)->firstOrFail();
+
+
+        $category->category_name = $request->input('category_name');
+
+        $category->save();
+
+        return response()->json($category, 200);
+    }
+
     public function destroy($id)
     {
         Category::where('id', $id)->firstOrFail()->delete();

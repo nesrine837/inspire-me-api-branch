@@ -52,6 +52,22 @@ class ProfessionsController extends Controller
         return response()->json($profession, 201);
     }
 
+    public function update(Request $request, $id)
+    {
+        $validation = Validator::make($request->input(), $this->rules);
+        if ($validation->fails()) {
+            return response()->json($validation->messages(), 400);
+        }
+
+        $profession = Profession::where('id', $id)->firstOrFail();
+
+        $profession->profession_name = $request->input('profession_name');
+
+        $profession->save();
+
+        return response()->json($profession, 200);
+    }
+
     public function destroy($id)
     {
         Profession::where('id', $id)->firstOrFail()->delete();

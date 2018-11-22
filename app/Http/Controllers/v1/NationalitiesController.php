@@ -52,6 +52,23 @@ class NationalitiesController extends Controller
         return response()->json($nationality, 201);
     }
 
+    public function update(Request $request, $id)
+    {
+        $validation = Validator::make($request->input(), $this->rules);
+        if ($validation->fails()) {
+            return response()->json($validation->messages(), 400);
+        }
+
+        $nationality = Nationality::where('id', $id)->firstOrFail();
+
+
+        $nationality->nationality_name = $request->input('nationality_name');
+
+        $nationality->save();
+
+        return response()->json($nationality, 200);
+    }
+
     public function destroy($id)
     {
         Nationality::where('id', $id)->firstOrFail()->delete();
