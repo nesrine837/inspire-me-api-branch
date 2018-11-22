@@ -83,7 +83,7 @@ class QuotesController extends Controller
 
         $quote->save();
 
-        return response()->json($quote, 201);
+        return response()->json($quote, 200);
     }
 
     public function destroy($id)
