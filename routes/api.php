@@ -35,7 +35,3 @@ Route::resource('/v1/professions', v1\ProfessionsController::class, $excludedRou
 Route::resource('/v1/categories', v1\CategoriesController::class, $excludedRoutes);
 
 Route::post('v1/mailer', 'v1\MailerController@newProject');
-Route::fallback(function () {
-    $data = [];
-    return response()->json($data, 404);
-});

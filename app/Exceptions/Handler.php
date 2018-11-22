@@ -2,6 +2,13 @@
 
 namespace App\Exceptions;
 
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Log;
+
+use Illuminate\Database\QueryException;
+
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
@@ -46,6 +53,42 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+
+    // This will replace our 404 response with a JSON response.
+        if ($exception instanceof ModelNotFoundException) {
+            return response()->json([
+            'error' => 'Resource item not found.'
+        ], 404);
+        }
+
+        if ($exception instanceof NotFoundHttpException) {
+            return response()->json([
+            'error' => 'Resource not found.'
+        ], 404);
+        }
+
+        if ($exception instanceof QueryException) {
+            if ($exception->errorInfo[0] == 23000) {
+                $data = [
+                    'message' => 'Cannot delete record with reliant data'
+                ];
+                return response()->json($data, 400);
+            }
+            throw $exception;
+        }
+
+        if ($exception instanceof MethodNotAllowedHttpException) {
+            return response()->json([
+            'error' => 'Method not allowed.'
+        ], 405);
+        }
+        if ($exception instanceof Exception) {
+            Log::error($exception->getMessage());
+            return response()->json([
+            'error' => 'An error has occurred.'
+        ], 500);
+        }
+
         return parent::render($request, $exception);
     }
 }
