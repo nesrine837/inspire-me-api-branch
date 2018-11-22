@@ -58,7 +58,11 @@ class QuoteesController extends Controller
         $quotee->nationality_id = $request->input('nationality_id');
         $quotee->quotee_gender = $request->input('quotee_gender');
 
-        dd($quotee);
+        $quotee->save();
+
+        return response()->json($quotee, 201);
+    }
+
     public function update(Request $request, $id)
     {
         $validation = Validator::make($request->input(), $this->rules);
