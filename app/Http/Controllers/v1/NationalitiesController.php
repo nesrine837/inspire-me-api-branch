@@ -31,7 +31,7 @@ class NationalitiesController extends Controller
     public function show($id)
     {
         $parameters = array_change_key_case(request()->input());
-        $parameters['nationality_id'] = $id;
+        $parameters['id'] = $id;
         $nationalities = $this->nationalitiesService->getNationalities($parameters);
         return response()->json($nationalities);
     }

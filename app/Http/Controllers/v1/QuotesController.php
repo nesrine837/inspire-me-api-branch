@@ -41,7 +41,7 @@ class QuotesController extends Controller
     public function show($id)
     {
         $parameters = array_change_key_case(request()->input());
-        $parameters['quote_id'] = $id;
+        $parameters['id'] = $id;
         $quotes = $this->quotesService->getQuotes($parameters);
         return response()->json($quotes);
     }

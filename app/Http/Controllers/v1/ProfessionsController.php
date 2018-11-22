@@ -30,7 +30,7 @@ class ProfessionsController extends Controller
     public function show($id)
     {
         $parameters = array_change_key_case(request()->input());
-        $parameters['profession_id'] = $id;
+        $parameters['id'] = $id;
         $professions = $this->professionsService->getProfessions($parameters);
         return response()->json($professions);
     }

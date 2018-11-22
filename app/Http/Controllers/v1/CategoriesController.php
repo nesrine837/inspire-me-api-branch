@@ -31,7 +31,7 @@ class CategoriesController extends Controller
     public function show($id)
     {
         $parameters = array_change_key_case(request()->input());
-        $parameters['category_id'] = $id;
+        $parameters['id'] = $id;
         $categories = $this->categoriesService->getCategories($parameters);
         return response()->json($categories);
     }
