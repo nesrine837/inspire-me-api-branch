@@ -64,7 +64,28 @@ class QuotesController extends Controller
 
         return response()->json($quote, 201);
     }
+
+
+    public function update(Request $request, $id)
+    {
+        $validation = Validator::make($request->input(), $this->rules);
+        if ($validation->fails()) {
+            return response()->json($validation->messages(), 400);
+        }
+
+        $quote = Quote::where('id', $id)->firstOrFail();
+
+
+        $quote->quote_content = $request->input('quote_content');
+        $quote->quotee_id = $request->input('quotee_id');
+        $quote->category_id = $request->input('category_id');
+        $quote->keywords = $request->input('keywords');
+
+        $quote->save();
+
+        return response()->json($quote, 201);
     }
+
     public function destroy($id)
     {
         Quote::where('id', $id)->firstOrFail()->delete();
