@@ -28,4 +28,12 @@ class QuoteesController extends Controller
         $quotees = $this->quoteesService->getQuotees($parameters);
         return response()->json($quotees);
     }
+    public function destroy($id)
+    {
+        Quotee::where('id', $id)->firstOrFail()->delete();
+        $data = [
+                'message' => 'Record successfully deleted'
+            ];
+        return response()->json($data, 200);
+    }
 }
