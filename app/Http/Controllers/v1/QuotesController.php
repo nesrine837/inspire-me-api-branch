@@ -44,6 +44,7 @@ class QuotesController extends Controller
         $quotes = $this->quotesService->getQuotes($parameters);
         return response()->json($quotes);
     }
+
     public function store(Request $request)
     {
         $validation = Validator::make($request->input(), $this->rules);
@@ -51,6 +52,17 @@ class QuotesController extends Controller
             return response()->json($validation->messages(), 400);
         }
 
+        $quote = new Quote;
+
+        $quote->quote_content = $request->input('quote_content');
+        $quote->quotee_id = $request->input('quotee_id');
+        $quote->category_id = $request->input('category_id');
+        $quote->keywords = $request->input('keywords');
+
+        $quote->save();
+
+        return response()->json($quote, 201);
+    }
     }
     public function destroy($id)
     {
