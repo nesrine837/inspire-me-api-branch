@@ -4,9 +4,9 @@ namespace App\Http\Controllers\v1;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-
+use Validator;
 use App\Services\v1\QuotesService;
+
 use App\Quote;
 
 class QuotesController extends Controller
