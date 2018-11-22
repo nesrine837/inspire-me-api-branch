@@ -12,6 +12,13 @@ use App\Quote;
 class QuotesController extends Controller
 {
     protected $quotesService;
+    protected $rules = [
+        'quote_content' => 'required',
+        'quotee_id' => 'required|exists:quotees,id',
+        'category_id' => 'required|exists:categories,id',
+        'keywords' => 'nullable',
+
+    ];
 
     public function __construct(QuotesService $service)
     {
