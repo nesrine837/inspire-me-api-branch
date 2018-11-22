@@ -6,6 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Profession extends Model
 {
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = false;
+
     //
     public function quotees()
     {
