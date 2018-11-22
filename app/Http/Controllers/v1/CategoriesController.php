@@ -28,4 +28,12 @@ class CategoriesController extends Controller
         $categories = $this->categoriesService->getCategories($parameters);
         return response()->json($categories);
     }
+    public function destroy($id)
+    {
+        Category::where('id', $id)->firstOrFail()->delete();
+        $data = [
+                'message' => 'Record successfully deleted'
+            ];
+        return response()->json($data, 200);
+    }
 }
