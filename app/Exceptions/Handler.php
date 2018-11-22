@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\Log;
 
 use Illuminate\Database\QueryException;
@@ -81,6 +82,12 @@ class Handler extends ExceptionHandler
             return response()->json([
             'error' => 'Method not allowed.'
         ], 405);
+        }
+        if ($exception instanceof AuthenticationException) {
+            Log::error($exception->getMessage());
+            return response()->json([
+            'error' => 'Unauthenticated'
+        ], 401);
         }
         if ($exception instanceof Exception) {
             Log::error($exception->getMessage());
