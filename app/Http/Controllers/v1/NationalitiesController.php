@@ -28,4 +28,12 @@ class NationalitiesController extends Controller
         $nationalities = $this->nationalitiesService->getNationalities($parameters);
         return response()->json($nationalities);
     }
+    public function destroy($id)
+    {
+        Nationality::where('id', $id)->firstOrFail()->delete();
+        $data = [
+                'status' => 'Record successfully deleted'
+            ];
+        return response()->json($data, 200);
+    }
 }
