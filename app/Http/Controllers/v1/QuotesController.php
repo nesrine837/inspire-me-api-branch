@@ -23,6 +23,7 @@ class QuotesController extends Controller
     public function __construct(QuotesService $service)
     {
         $this->quotesService = $service;
+        $this->middleware('auth:api', ['except' => ['index', 'show']]);
     }
 
     public function index()
