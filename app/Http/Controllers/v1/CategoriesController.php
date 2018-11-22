@@ -4,11 +4,18 @@ namespace App\Http\Controllers\v1;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Validator;
 use App\Services\v1\CategoriesService;
+
+use App\Category;
 
 class CategoriesController extends Controller
 {
     protected $categoriesService;
+    protected $rules = [
+        'category_name' => 'required|unique:categories,category_name',
+
+    ];
 
     public function __construct(CategoriesService $service)
     {
@@ -28,6 +35,23 @@ class CategoriesController extends Controller
         $categories = $this->categoriesService->getCategories($parameters);
         return response()->json($categories);
     }
+
+    public function store(Request $request)
+    {
+        $validation = Validator::make($request->input(), $this->rules);
+        if ($validation->fails()) {
+            return response()->json($validation->messages(), 400);
+        }
+
+        $category = new Category;
+
+        $category->category_name = $request->input('category_name');
+
+        $category->save();
+
+        return response()->json($category, 201);
+    }
+
     public function destroy($id)
     {
         Category::where('id', $id)->firstOrFail()->delete();
