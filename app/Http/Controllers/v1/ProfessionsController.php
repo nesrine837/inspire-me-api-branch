@@ -27,4 +27,12 @@ class ProfessionsController extends Controller
         $professions = $this->professionsService->getProfessions($parameters);
         return response()->json($professions);
     }
+    public function destroy($id)
+    {
+        Profession::where('id', $id)->firstOrFail()->delete();
+        $data = [
+                'message' => 'Record successfully deleted'
+            ];
+        return response()->json($data, 200);
+    }
 }
