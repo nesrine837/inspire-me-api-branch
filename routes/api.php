@@ -15,9 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
+Auth::routes();
+
+Route::post('login', 'PassportController@login');
+Route::post('register', 'PassportController@register');
 
 $excludedRoutes = ['except' =>
                     ['create', 'edit']];
