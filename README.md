@@ -36,7 +36,7 @@
 
 Welcome to the documentation of the REST API for the Inspire Me quotes website.
 This is a free open source API for retrieving quotes from our database.
-The base url is `inspire-api.redmountaindev.co.za/`
+The base url is `inspire-me-api.redmountaindev.co.za/`
 
 ## Public Endpoints
 
