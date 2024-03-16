@@ -24,7 +24,7 @@ pipeline {
         stage('Checkout and Build') {
             when {
                 expression {
-                    currentBuild.result == 'SUCCESS'
+                    currentBuild.result == 'SUCCEDED'
                 }
             }
             steps {
