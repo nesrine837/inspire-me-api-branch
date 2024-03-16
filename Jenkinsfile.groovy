@@ -28,9 +28,7 @@ pipeline {
                 }
             }
             steps {
-                // Checkout and build steps
-                git 'https://github.com/nesrine837/inspire-me-api-branch.git'
-                sh 'your_build_command_here'
+                echo 'Test.'
             }
         }
     }
