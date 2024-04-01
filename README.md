@@ -427,7 +427,17 @@ En complément des directives spécifiques à Laravel, les normes PSR-2 pour le 
 
    - Se déplacer dans le répertoire du projet : 
 
+     ``` 
+
      cd inspire-me-api 
+
+     ``` 
+
+   - Créer une branche de développement : 
+
+     ``` 
+
+     git checkout -b develop 
 
      ``` 
 
