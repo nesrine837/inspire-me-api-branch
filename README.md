@@ -32,10 +32,7 @@
             -   [Filters](#filters-4)
             -   [Sort By Fields](#sort-by-fields-4)
 	-   [Standards et Checklists de Qualité du Code](#standards-et-checklists-de-qualité-du-code)
- -   
-            -   [Standards de qualité](#standards-de-qualité-5)
-            -   [Checklists de Qualité du code](#checklists-de-qualité-du-code-5)	
-    
+   
      
 ## Introduction
 
