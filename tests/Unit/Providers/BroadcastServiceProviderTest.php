@@ -11,15 +11,13 @@ class BroadcastServiceProviderTest extends TestCase
     public function test_broadcast_routes_are_set_up()
     {
         // Create a mock User object
-        $user = new User();
-
-        // Optionally, configure the mock object as needed
-        // $user->setId(1);
+        $user = factory(User::class)->create();
 
         // Arrange
         Broadcast::shouldReceive('routes')->once();
         Broadcast::shouldReceive('channel')->andReturnUsing(function ($callback) use ($user) {
-            return $callback($user, null);
+            // Act as the authenticated user
+            $this->actingAs($user);
         });
 
         // Act

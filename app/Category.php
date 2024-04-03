@@ -13,7 +13,7 @@ class Category extends Model
      */
     public $timestamps = false;
 
-    public function quote()
+    public function quotes()
     {
         return $this->hasMany(Quote::class);
     }

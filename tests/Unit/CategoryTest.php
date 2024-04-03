@@ -14,7 +14,7 @@ class CategoryTest extends TestCase
         $category = new Category();
 
         // Use the relationship method to get the quote relationship
-        $quoteRelation = $category->quote();
+        $quoteRelation = $category->quotes();
 
         // Check if the relationship returns an instance of Illuminate\Database\Eloquent\Relations\HasMany
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class, $quoteRelation);
